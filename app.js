@@ -40,6 +40,12 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
+
+  console.log("[ERR]" + err.status + " --> " + err.message);
+  console.log("[ERR-URL]" + req.originalUrl);
+  console.log("[ERR-BODY]" + req.body);
+  console.log(req.body);
+
   res.render('error');
 });
 
