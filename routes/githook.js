@@ -3,7 +3,9 @@ var router = express.Router();
 
 /* GET githook listing. */
 router.post('/', function(req, res, next) {
-  console.log("[GitHook]" + req.originalUrl + "--> body below --> ");
+  console.log("[GitHook]" + req.originalUrl + "--> header below --> ");
+  console.log(req.headers);
+  console.log("[GitHook continue]--> body below --> ");
   console.log(req.body);
   res.send('ok');
 });
