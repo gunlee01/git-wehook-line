@@ -118,6 +118,7 @@ eventActor.on('pull_request', function(headers, data) {
   } else if(action === 'closed') {
     msg += '        [PR#' + prNumber + '] ' + action + ' BY ' + sender + '\r\n';
     msg += '        [PR Title] ' + title + '\r\n';
+    msg += '        [BASE] ' + baseRef + ' <- [HEAD]' + headRef + '\r\n';
 
     if(merged) {
       msg += '\u{10008B} [MERGED By] ' + merged_by + '\r\n';
