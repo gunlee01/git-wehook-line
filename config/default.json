@@ -1,0 +1,8 @@
+{
+  "line" : {
+    "token": "Bearer {xxx}",
+    "to": "zzz",
+    "hostname": "api.line.me",
+    "push-path": "/v2/bot/message/push/"
+  }
+}
