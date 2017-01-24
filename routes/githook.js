@@ -4,8 +4,10 @@ var https = require('https');
 var querystring = require('querystring');
 var crypto = require('crypto');
 var config = require('config');
-
 var eventActor = {actors: {}};
+var flat = require('flat-file-db');
+
+var db = flat.sync('db/my.db');
 
 eventActor.on = function(eventName, eventFunction) {
   this.actors[eventName] = eventFunction;
@@ -49,6 +51,13 @@ eventActor.on('push', function(headers, data) {
       msg += '\u{10007E} [PUSH] **develop** branch' + '\r\n';
       msg += '\u{1000A3}[WHO] ' + pusher + '\r\n';
       msg += '\u{10003B} ' + link;
+
+      var savedUser = db.get(pusher);
+      if(!savedUser) {
+        savedUser = {prPoint: 0, reviewPoint: 0, penaltyPoint: 0};
+      }
+      savedUser.penaltyPoint -= 1;
+      db.put(pusher, savedUser);
 
       sendToLine(msg);
     }
@@ -100,8 +109,16 @@ eventActor.on('pull_request', function(headers, data) {
   var msg = '';
   msg += '\u{1000A9}\u{1000A9} [ ' + repoName + ' ] \u{1000A9}\u{1000A9}' + '\r\n';
 
+
   // open
   if(action === 'opened' || action === 'reopened' || action === 'edited') {
+    var savedUser = db.get(prUser);
+    if(!savedUser) {
+      savedUser = {prPoint: 0, reviewPoint: 0, penaltyPoint: 0};
+    }
+    savedUser.prPoint += 1;
+    db.put(prUser, savedUser);
+
     msg += '        [PR#' + prNumber + '] ' + action + ' BY ' + prUser + '\r\n';
 
     msg += '\u{100085} [PR Title] ' + title + '\r\n';
@@ -121,6 +138,13 @@ eventActor.on('pull_request', function(headers, data) {
 
   //close
   } else if(action === 'closed') {
+    var savedUser = db.get(sender);
+    if(!savedUser) {
+      savedUser = {prPoint: 0, reviewPoint: 0, penaltyPoint: 0};
+    }
+    savedUser.prPoint += 1;
+    db.put(sender, savedUser);
+
     msg += '        [PR#' + prNumber + '] ' + action + ' BY ' + sender + '\r\n';
     msg += '        [PR Title] ' + title + '\r\n';
     msg += '        [BASE] ' + baseRef + ' <- [HEAD]' + headRef + '\r\n';
