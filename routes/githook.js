@@ -3,7 +3,6 @@ var router = express.Router();
 var https = require('https');
 var querystring = require('querystring');
 var crypto = require('crypto');
-var crypto = require('crypto');
 var config = require('config');
 
 var eventActor = {actors: {}};
@@ -17,12 +16,12 @@ router.post('/', function(req, res, next) {
   console.log("[GitHook type] " + req.header('x-github-event') + " --> header below --> ");
   console.log(req.headers);
   console.log("[GitHook continue] --> body below --> ");
-  console.log(req.body);
+  //console.log(req.body);
 
   var eventName = req.header('x-github-event');
 
   if(!eventName || !eventActor.actors[eventName]) {
-    res.status(400).send('wrong access');
+    res.status(200).send('unsupported');
     return;
   }
 
@@ -71,6 +70,12 @@ eventActor.on('pull_request', function(headers, data) {
 
   var repoName = data.repository.full_name;
   var sender = data.sender.login;
+
+  if(!data.pull_request) {
+    console.log('################## no pr object #########################');
+    consol.log(data);
+    console.log('##########################################################');
+  }
 
   var htmlUrl = data.pull_request.html_url;
   var title = data.pull_request.title;
