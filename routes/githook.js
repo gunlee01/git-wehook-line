@@ -85,7 +85,7 @@ eventActor.on('pull_request', function(headers, data) {
   var prUser = data.pull_request.user.login;
 
   var merged = data.pull_request.merged;
-  var merged_by =  data.pull_request.merged_by ? pull_request.merged_by.login : undefined;
+  var merged_by =  data.pull_request.merged_by ? data.pull_request.merged_by.login : undefined;
 
   var commits = data.pull_request.commits;
   var additions = data.pull_request.additions;
