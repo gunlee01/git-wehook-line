@@ -1,7 +1,7 @@
 {
   "line" : {
-    "token": "Bearer {xxx}",
-    "to": "zzz",
+    "token": "Bearer {8ahXC5Dp+OXOzDawYomz2171Q4xUGIOHItvP91TsT1qfqAkr+VzbZR/CyqRBEQ/3pM8sIva3ZyJBybQ7Qt9YsoRtOYYV3pnOHIPPWpow4hjlLFDBNBgCuUrr9d7fEITkxzWCc4jkrRDZZyYEW0Cw8wdB04t89/1O/w1cDnyilFU=}",
+    "to": "C7f44d4f9cbbb1655a5d1ef63c83cc8e3",
     "hostname": "api.line.me",
     "push-path": "/v2/bot/message/push/"
   }

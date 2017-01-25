@@ -12,7 +12,12 @@ router.get('/test', function(req, res, next) {
 });
 
 router.get('/debug', function(req, res, next) {
+  res.render('index', { title: 'Express' });
+});
 
+router.get('/linewebhook', function(req, res, next) {
+  console.log(req.headers);
+  console.log(JSON.stringify(req.body));
   res.render('index', { title: 'Express' });
 });
 
