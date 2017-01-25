@@ -41,3 +41,5 @@ jspm_packages
 /config/default.json.my
 
 /db/*
+
+/test/*

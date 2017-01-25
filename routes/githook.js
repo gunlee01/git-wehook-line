@@ -3,9 +3,6 @@ var router = express.Router();
 var crypto = require('crypto');
 var line = require('../lib/line');
 var eventActor = require('../lib/event-actor');
-var flat = require('flat-file-db');
-
-var db = flat.sync('db/my.db');
 
 /* GET githook listing. */
 router.post('/', function(req, res, next) {

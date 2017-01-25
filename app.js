@@ -46,8 +46,8 @@ app.use(function(err, req, res, next) {
 
   console.log("[ERR]" + err.status + " --> " + err.message);
   console.log("[ERR-URL]" + req.originalUrl);
-  console.log("[ERR-BODY]" + req.body);
-  console.log(req.body);
+  //console.log("[ERR-BODY]" + req.body);
+  //console.log(req.body);
 
   res.render('error');
 });
